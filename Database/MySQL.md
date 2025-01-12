@@ -30,3 +30,8 @@ select score, dense_rank() over(order by score desc) as `rank` from scores;
 # Write your MySQL query statement below
 select distinct num as ConsecutiveNums from Logs B where exists (select * from Logs A where A.id = B.id - 1 and A.num = B.num) and exists (select * from Logs C where C.id = B.id + 1 and C.num = B.num);
 ```
+181. Employees Earning More Than Their Managers
+```sql
+# Write your MySQL query statement below
+select e.name as Employee from Employee e join Employee m on (m.id = e.managerId) where e.managerId is not null and e.salary > m.salary;
+```
