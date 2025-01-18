@@ -35,3 +35,33 @@ select distinct num as ConsecutiveNums from Logs B where exists (select * from L
 # Write your MySQL query statement below
 select e.name as Employee from Employee e join Employee m on (m.id = e.managerId) where e.managerId is not null and e.salary > m.salary;
 ```
+182. Duplicate Emails
+```sql
+# Write your MySQL query statement below
+select email from Person group by email having count(*) > 1;
+```
+183. Customers Who Never Order
+```sql
+# Write your MySQL query statement below
+select name as Customers from Customers where not exists (select 1 from Orders where customerId = Customers.id);
+```
+184. Department Highest Salary
+```sql
+# Write your MySQL query statement below
+select (select name from Department where id = e.departmentId) as Department, e.name as Employee, salary as Salary
+from (
+    select *, rank() over (partition by departmentId order by salary desc) as `rank` 
+    from Employee
+    ) e
+where e.rank = 1;
+```
+185. Department Top Three Salaries
+```sql
+# Write your MySQL query statement below
+select (select name from Department where id = e.departmentId) as Department, e.name as Employee, salary as Salary
+from (
+    select *, dense_rank() over (partition by departmentId order by salary desc) as `rank` 
+    from Employee
+    ) e
+where e.rank <= 3;
+```
