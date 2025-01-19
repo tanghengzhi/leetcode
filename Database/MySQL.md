@@ -65,3 +65,39 @@ from (
     ) e
 where e.rank <= 3;
 ```
+196. Delete Duplicate Emails
+```sql
+# Write your MySQL query statement below
+delete from Person where id not in (
+    select id from (select min(id) as id from Person group by email) t
+);
+```
+197. Rising Temperature
+```sql
+# Write your MySQL query statement below
+select id from Weather t where exists (select 1 from Weather where recordDate = subdate(t.recordDate, 1) and temperature < t.temperature);
+```
+262. Trips and Users
+```sql
+# Write your MySQL query statement below
+select request_at as Day, round(sum(status<>'completed') / count(*), 2) as `Cancellation Rate` from Trips 
+where client_id not in (select users_id from Users where role = 'client' and banned = 'Yes') 
+  and driver_id not in (select users_id from Users where role = 'driver' and banned = 'Yes')
+  and request_at between '2013-10-01' and '2013-10-03'
+group by Day;
+```
+511. Game Play Analysis I
+```sql
+# Write your MySQL query statement below
+select player_id, min(event_date) as first_login from Activity group by player_id;
+```
+550. Game Play Analysis IV
+```sql
+# Write your MySQL query statement below
+select round(count(distinct player_id) / count(*), 2) as fraction from
+(
+    select (select player_id from Activity where player_id = a.player_id and event_date = adddate(min(a.event_date), 1)) as player_id
+    from Activity a
+    group by player_id
+) t;
+```
