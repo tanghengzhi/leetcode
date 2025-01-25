@@ -104,5 +104,15 @@ select round(count(distinct player_id) / count(*), 2) as fraction from
 570. Managers with at Least 5 Direct Reports
 ```sql
 # Write your MySQL query statement below
-select name from Employee t where managerId is null and exists (select count(*) >= 5 from Employee where managerId = t.id);
+select name from Employee where id in (
+    select managerId from Employee
+    where managerId is not null
+    group by managerId
+    having count(*) >= 5
+);
+```
+577. Employee Bonus
+```sql
+# Write your MySQL query statement below
+select name, bonus from Employee left join Bonus using(empId) where bonus is null or bonus < 1000;
 ```
