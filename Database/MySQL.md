@@ -101,3 +101,8 @@ select round(count(distinct player_id) / count(*), 2) as fraction from
     group by player_id
 ) t;
 ```
+570. Managers with at Least 5 Direct Reports
+```sql
+# Write your MySQL query statement below
+select name from Employee t where managerId is null and exists (select count(*) >= 5 from Employee where managerId = t.id);
+```
