@@ -116,3 +116,22 @@ select name from Employee where id in (
 # Write your MySQL query statement below
 select name, bonus from Employee left join Bonus using(empId) where bonus is null or bonus < 1000;
 ```
+584. Find Customer Referee
+```sql
+# Write your MySQL query statement below
+select name from Customer where referee_id is null or referee_id <> 2;
+```
+585. Investments in 2016
+```sql
+# Write your MySQL query statement below
+select round(sum(tiv_2016), 2) as tiv_2016 from Insurance t where exists (
+    select * from Insurance where pid <> t.pid and tiv_2015 = t.tiv_2015
+) and not exists (
+    select * from Insurance where pid <> t.pid and lat = t.lat and lon = t.lon
+);
+```
+586. Customer Placing the Largest Number of Orders
+```sql
+# Write your MySQL query statement below
+select customer_number from Orders group by customer_number order by count(*) desc limit 1;
+```
