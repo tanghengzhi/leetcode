@@ -135,3 +135,36 @@ select round(sum(tiv_2016), 2) as tiv_2016 from Insurance t where exists (
 # Write your MySQL query statement below
 select customer_number from Orders group by customer_number order by count(*) desc limit 1;
 ```
+595. Big Countries
+```sql
+# Write your MySQL query statement below
+select name, population, area from World where population >= 25000000 or area >= 3000000;
+```
+596. Classes More Than 5 Students
+```sql
+# Write your MySQL query statement below
+select class from Courses group by class having count(student) >= 5;
+```
+601. Human Traffic of Stadium
+```sql
+# Write your MySQL query statement below
+select id, visit_date, people from Stadium t where people >= 100 and (
+    (exists (
+        select 1 from Stadium where id = t.id + 1 and people >= 100
+    ) and exists (
+        select 1 from Stadium where id = t.id + 2 and people >= 100
+    ))
+    or 
+    (exists (
+        select 1 from Stadium where id = t.id - 1 and people >= 100
+    ) and exists (
+        select 1 from Stadium where id = t.id + 1 and people >= 100
+    ))
+    or 
+    (exists (
+        select 1 from Stadium where id = t.id - 1 and people >= 100
+    ) and exists (
+        select 1 from Stadium where id = t.id - 2 and people >= 100
+    ))
+);
+```
