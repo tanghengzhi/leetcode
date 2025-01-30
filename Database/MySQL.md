@@ -168,3 +168,33 @@ select id, visit_date, people from Stadium t where people >= 100 and (
     ))
 );
 ```
+602. Friend Requests II: Who Has the Most Friends
+```sql
+# Write your MySQL query statement below
+select id, count(*) as num from (
+    select requester_id as id from RequestAccepted
+    union all select accepter_id as id from RequestAccepted
+) t
+group by id
+order by num desc
+limit 1;
+```
+607. Sales Person
+```sql
+# Write your MySQL query statement below
+select name from SalesPerson where sales_id not in (
+    select sales_id from Orders where com_id in (
+        select com_id from Company where name = 'RED'
+    )
+);
+```
+608. Tree Node
+```sql
+# Write your MySQL query statement below
+select id, (IF(p_id is null, 'Root', IF(exists (select 1 from Tree where p_id = t.id), 'Inner', 'Leaf'))) as type from Tree t;
+```
+610. Triangle Judgement
+```sql
+# Write your MySQL query statement below
+select *, (IF(x + y > z and x + z > y and y + z > x, 'Yes', 'No')) as triangle from Triangle;
+```
