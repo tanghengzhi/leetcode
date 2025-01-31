@@ -198,3 +198,17 @@ select id, (IF(p_id is null, 'Root', IF(exists (select 1 from Tree where p_id = 
 # Write your MySQL query statement below
 select *, (IF(x + y > z and x + z > y and y + z > x, 'Yes', 'No')) as triangle from Triangle;
 ```
+619. Biggest Single Number
+```sql
+# Write your MySQL query statement below
+select max(num) as num from (
+    select num from MyNumbers group by num having count(*) = 1
+) t;
+```
+620. Not Boring Movies
+```sql
+# Write your MySQL query statement below
+select * from Cinema
+where id % 2 = 1 and description <> 'boring'
+order by rating desc;
+```
