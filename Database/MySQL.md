@@ -212,3 +212,27 @@ select * from Cinema
 where id % 2 = 1 and description <> 'boring'
 order by rating desc;
 ```
+626. Exchange Seats
+```sql
+# Write your MySQL query statement below
+select id, IFNULL(IF(id % 2 = 1, (select student from Seat where id = t.id + 1), (select student from Seat where id = t.id - 1)), t.student) as student from Seat t;
+```
+627. Swap Salary
+```sql
+# Write your MySQL query statement below
+update Salary set sex = IF(sex = 'm', 'f', 'm');
+```
+1045. Customers Who Bought All Products
+```sql
+# Write your MySQL query statement below
+select customer_id from Customer
+group by customer_id
+having count(distinct product_key) = (select count(*) from Product);
+```
+1050. Actors and Directors Who Cooperated At Least Three Times
+```sql
+# Write your MySQL query statement below
+select actor_id, director_id from ActorDirector
+group by actor_id, director_id
+having count(*) >= 3;
+```
