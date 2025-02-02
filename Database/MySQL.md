@@ -236,3 +236,15 @@ select actor_id, director_id from ActorDirector
 group by actor_id, director_id
 having count(*) >= 3;
 ```
+1068. Product Sales Analysis I
+```sql
+# Write your MySQL query statement below
+select product_name, year, price from Sales join Product using (product_id);
+```
+1070. Product Sales Analysis III
+```sql
+# Write your MySQL query statement below
+select t1.product_id, t1.first_year, t2.quantity, t2.price
+from (select product_id, min(year) as first_year from Sales group by product_id) t1
+join Sales t2 on (t1.product_id = t2.product_id and t1.first_year = t2.year);
+```
