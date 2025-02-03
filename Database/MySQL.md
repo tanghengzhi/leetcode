@@ -248,3 +248,17 @@ select t1.product_id, t1.first_year, t2.quantity, t2.price
 from (select product_id, min(year) as first_year from Sales group by product_id) t1
 join Sales t2 on (t1.product_id = t2.product_id and t1.first_year = t2.year);
 ```
+1075. Project Employees I
+```sql
+# Write your MySQL query statement below
+select project_id, round(sum(experience_years) / count(*), 2) as average_years from Project join Employee using (employee_id) group by project_id;
+```
+1084. Sales Analysis III
+```sql
+# Write your MySQL query statement below
+select product_id, product_name from Product where product_id in (
+    select product_id from Sales t where sale_date between '2019-01-01' and '2019-03-31' and not exists (
+        select 1 from Sales where product_id = t.product_id and sale_date not between '2019-01-01' and '2019-03-31'
+    )
+);
+```
