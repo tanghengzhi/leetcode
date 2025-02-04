@@ -262,3 +262,21 @@ select product_id, product_name from Product where product_id in (
     )
 );
 ```
+1141. User Activity for the Past 30 Days I
+```sql
+# Write your MySQL query statement below
+select activity_date as day, count(distinct user_id) as active_users
+from Activity
+where activity_date between '2019-06-28' and '2019-07-27'
+group by day;
+```
+1148. Article Views I
+```sql
+# Write your MySQL query statement below
+select distinct author_id as id from Views where author_id = viewer_id order by author_id;
+```
+1158. Market Analysis I
+```sql
+# Write your MySQL query statement below
+select user_id as buyer_id, join_date, (select count(*) from Orders where buyer_id = t.user_id and order_date between '2019-01-01' and '2019-12-31') as orders_in_2019 from Users t; 
+```
