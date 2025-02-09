@@ -280,3 +280,60 @@ select distinct author_id as id from Views where author_id = viewer_id order by 
 # Write your MySQL query statement below
 select user_id as buyer_id, join_date, (select count(*) from Orders where buyer_id = t.user_id and order_date between '2019-01-01' and '2019-12-31') as orders_in_2019 from Users t; 
 ```
+1164. Product Price at a Given Date
+```sql
+# Write your MySQL query statement below
+select product_id, IFNULL((select new_price from Products where product_id = t.product_id and change_date <= '2019-08-16' order by change_date desc limit 1), 10) as price
+from Products t
+group by product_id
+```
+1174. Immediate Food Delivery II
+```sql
+# Write your MySQL query statement below
+select round(avg(immediate)*100, 2) as immediate_percentage
+from (
+    select order_date = customer_pref_delivery_date as immediate
+    from (
+        select
+            customer_id,
+            FIRST_VALUE(order_date)                    over w as order_date,
+            FIRST_VALUE(customer_pref_delivery_date)   over w as customer_pref_delivery_date
+        from Delivery
+        window w as (partition by customer_id order by order_date asc)
+    ) t1
+    group by customer_id
+) t2;
+```
+1179. Reformat Department Table
+```sql
+# Write your MySQL query statement below
+select 
+  id,
+  sum(if(month='Jan', revenue, null)) as Jan_Revenue,
+  sum(if(month='Feb', revenue, null)) as Feb_Revenue,
+  sum(if(month='Mar', revenue, null)) as Mar_Revenue,
+  sum(if(month='Apr', revenue, null)) as Apr_Revenue,
+  sum(if(month='May', revenue, null)) as May_Revenue,
+  sum(if(month='Jun', revenue, null)) as Jun_Revenue,
+  sum(if(month='Jul', revenue, null)) as Jul_Revenue,
+  sum(if(month='Aug', revenue, null)) as Aug_Revenue,
+  sum(if(month='Sep', revenue, null)) as Sep_Revenue,
+  sum(if(month='Oct', revenue, null)) as Oct_Revenue,
+  sum(if(month='Nov', revenue, null)) as Nov_Revenue,
+  sum(if(month='Dec', revenue, null)) as Dec_Revenue
+from Department
+group by id;
+```
+1193. Monthly Transactions I
+```sql
+# Write your MySQL query statement below
+select
+  substr(trans_date, 1, 7) as month,
+  country,
+  count(*) as trans_count,
+  sum(state='approved') as approved_count,
+  sum(amount) as trans_total_amount,
+  sum(IF(state='approved', amount, 0)) as approved_total_amount
+from Transactions
+group by month, country;
+```
