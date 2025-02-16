@@ -45,3 +45,23 @@ select tweet_id from Tweets where length(content) > 15;
 # Write your MySQL query statement below
 select tweet_id from Tweets where char_length(content) > 15;
 ```
+
+##
+
+### Replace Employee ID With The Unique Identifier
+
+> Beats 44.81%
+
+```sql
+# Write your MySQL query statement below
+select unique_id, name from Employees left join EmployeeUNI using (id);
+```
+
+### Product Sales Analysis I
+
+> Beats 98.16%
+
+```sql
+# Write your MySQL query statement below
+select product_name, year, price from Sales join Product using (product_id);
+```
