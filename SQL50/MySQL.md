@@ -30,6 +30,8 @@ select name, population, area from World where population >= 25000000 or area >=
 select distinct author_id as id from Views where author_id = viewer_id order by author_id;
 ```
 
+## Basic Joins
+
 ### Invalid Tweets
 
 > Beats 18.56%
