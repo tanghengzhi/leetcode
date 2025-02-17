@@ -77,3 +77,12 @@ from Visits left join Transactions using(visit_id)
 group by customer_id
 having count_no_trans > 0;
 ```
+
+### Rising Temperature
+
+Beats 83.30%
+
+```sql
+# Write your MySQL query statement below
+select id from Weather t where exists (select 1 from Weather where recordDate = subdate(t.recordDate, 1) and temperature < t.temperature);
+```
