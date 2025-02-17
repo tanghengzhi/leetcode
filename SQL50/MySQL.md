@@ -65,3 +65,15 @@ select unique_id, name from Employees left join EmployeeUNI using (id);
 # Write your MySQL query statement below
 select product_name, year, price from Sales join Product using (product_id);
 ```
+
+### Customer Who Visited but Did Not Make Any Transactions
+
+> Beats 64.72%
+
+```sql
+# Write your MySQL query statement below
+select customer_id, sum(transaction_id is null) as count_no_trans
+from Visits left join Transactions using(visit_id)
+group by customer_id
+having count_no_trans > 0;
+```
