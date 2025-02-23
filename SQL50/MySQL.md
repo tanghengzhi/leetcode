@@ -80,9 +80,29 @@ having count_no_trans > 0;
 
 ### Rising Temperature
 
-Beats 83.30%
+> Beats 83.30%
 
 ```sql
 # Write your MySQL query statement below
 select id from Weather t where exists (select 1 from Weather where recordDate = subdate(t.recordDate, 1) and temperature < t.temperature);
+```
+
+### Average Time of Process per Machine
+
+> Beats 69.95%
+
+```sql
+# Write your MySQL query statement below
+select machine_id, round((sum(IF(activity_type='end', timestamp, null)) - sum(IF(activity_type='start', timestamp, null))) / (count(*) / 2), 3) as processing_time
+from Activity
+group by machine_id;
+```
+
+### Employee Bonus
+
+> Beats 10.47%
+
+```sql
+# Write your MySQL query statement below
+select name, bonus from Employee left join Bonus using(empId) where bonus is null or bonus < 1000;
 ```
