@@ -106,3 +106,42 @@ group by machine_id;
 # Write your MySQL query statement below
 select name, bonus from Employee left join Bonus using(empId) where bonus is null or bonus < 1000;
 ```
+### Students and Examinations
+
+> Beats 7.44%
+
+```sql
+# Write your MySQL query statement below
+select Students.*, Subjects.*, IFNULL(t.attended_exams, 0) as attended_exams
+from Students
+cross join Subjects
+left join (select student_id, subject_name, count(*) as attended_exams from Examinations group by student_id, subject_name) t
+on (t.student_id = Students.student_id and t.subject_name = Subjects.subject_name)
+order by student_id, subject_name;
+```
+
+### Managers with at Least 5 Direct Reports
+
+> Beats 5.64%
+
+```sql
+# Write your MySQL query statement below
+select name from Employee where id in (
+    select managerId from Employee
+    where managerId is not null
+    group by managerId
+    having count(*) >= 5
+);
+```
+
+### Confirmation Rate
+
+> Beats 85.74%
+
+```sql
+# Write your MySQL query statement below
+select s.user_id, ifnull(round(sum(action='confirmed') / count(*), 2), 0) as confirmation_rate
+from Signups s
+left join Confirmations c using (user_id)
+group by user_id;
+```
