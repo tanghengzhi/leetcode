@@ -145,3 +145,16 @@ from Signups s
 left join Confirmations c using (user_id)
 group by user_id;
 ```
+
+## Basic Aggregate Functions
+
+### Not Boring Movies
+
+> Beats 83.25%
+
+```sql
+# Write your MySQL query statement below
+select * from Cinema
+where id % 2 = 1 and description <> 'boring'
+order by rating desc;
+```
