@@ -158,3 +158,25 @@ select * from Cinema
 where id % 2 = 1 and description <> 'boring'
 order by rating desc;
 ```
+
+### Average Selling Price
+
+> Beats 17.47%
+
+```sql
+# Write your MySQL query statement below
+select product_id, ifnull(round(sum(price*units) / sum(units), 2), 0) as average_price from
+(
+select product_id, price, (select sum(units) from UnitsSold where product_id = p.product_id and purchase_date between p.start_date and p.end_date) as units from Prices p
+) t
+group by product_id;
+```
+
+### Project Employees I
+
+> Beats 64.12%
+
+```sql
+# Write your MySQL query statement below
+select project_id, round(avg(experience_years), 2) as average_years from Project left join Employee using (employee_id) group by project_id;
+```
