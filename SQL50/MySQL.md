@@ -192,3 +192,69 @@ from Register
 group by contest_id
 order by percentage desc, contest_id asc;
 ```
+
+### Queries Quality and Percentage
+
+> Beats 57.28%
+
+```sql
+# Write your MySQL query statement below
+select 
+  query_name,
+  round(avg(rating / position), 2) as quality,
+  round(avg(case when rating < 3 then 1 else 0 end) * 100, 2) as poor_query_percentage
+from Queries
+group by query_name;
+```
+
+### Monthly Transactions I
+
+> Beats 64.73%
+
+```sql
+# Write your MySQL query statement below
+select
+  substr(trans_date, 1, 7) as month,
+  country,
+  count(*) as trans_count,
+  sum(state='approved') as approved_count,
+  sum(amount) as trans_total_amount,
+  sum(IF(state='approved', amount, 0)) as approved_total_amount
+from Transactions
+group by month, country;
+```
+
+### Immediate Food Delivery II
+
+> Beats 48.11%
+
+```sql
+# Write your MySQL query statement below
+select round(avg(immediate)*100, 2) as immediate_percentage
+from (
+    select order_date = customer_pref_delivery_date as immediate
+    from (
+        select
+            customer_id,
+            FIRST_VALUE(order_date)                    over w as order_date,
+            FIRST_VALUE(customer_pref_delivery_date)   over w as customer_pref_delivery_date
+        from Delivery
+        window w as (partition by customer_id order by order_date asc)
+    ) t1
+    group by customer_id
+) t2;
+```
+
+### Game Play Analysis IV
+
+> Beats 5.01%
+
+```sql
+# Write your MySQL query statement below
+select round(count(distinct player_id) / count(*), 2) as fraction from
+(
+    select (select player_id from Activity where player_id = a.player_id and event_date = adddate(min(a.event_date), 1)) as player_id
+    from Activity a
+    group by player_id
+) t;
+```
