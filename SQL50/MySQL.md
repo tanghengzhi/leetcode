@@ -258,3 +258,82 @@ select round(count(distinct player_id) / count(*), 2) as fraction from
     group by player_id
 ) t;
 ```
+
+## Sorting and Grouping
+
+### Number of Unique Subjects Taught by Each Teacher
+
+> Beats 92.02%
+
+```sql
+# Write your MySQL query statement below
+select teacher_id, count(distinct subject_id) as cnt
+from Teacher
+group by teacher_id;
+```
+
+### User Activity for the Past 30 Days I
+
+> Beats 75.23%
+
+```sql
+# Write your MySQL query statement below
+select activity_date as day, count(distinct user_id) as active_users
+from Activity
+where activity_date between '2019-06-28' and '2019-07-27'
+group by day;
+```
+
+### Product Sales Analysis III
+
+> Beats 32.02%
+
+```sql
+# Write your MySQL query statement below
+select t1.product_id, t1.first_year, t2.quantity, t2.price
+from (select product_id, min(year) as first_year from Sales group by product_id) t1
+join Sales t2 on (t1.product_id = t2.product_id and t1.first_year = t2.year);
+```
+
+### Classes More Than 5 Students
+
+> Beats 97.81%
+
+```sql
+# Write your MySQL query statement below
+select class from Courses group by class having count(student) >= 5;
+```
+
+### Find Followers Count
+
+> Beats 95.20%
+
+```sql
+# Write your MySQL query statement below
+select user_id, count(*) as followers_count
+from Followers
+group by user_id
+order by user_id;
+```
+
+### Biggest Single Number
+
+> Beats 40.82%
+
+```sql
+# Write your MySQL query statement below
+select max(num) as num from (
+    select num from MyNumbers group by num having count(*) = 1
+) t;
+```
+
+### Customers Who Bought All Products
+
+> Beats 79.89%
+
+```sql
+# Write your MySQL query statement below
+select customer_id from Customer
+group by customer_id
+having count(distinct product_key) = (select count(*) from Product);
+```
