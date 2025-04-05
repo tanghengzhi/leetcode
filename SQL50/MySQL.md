@@ -337,3 +337,18 @@ select customer_id from Customer
 group by customer_id
 having count(distinct product_key) = (select count(*) from Product);
 ```
+
+## Advanced Select and Joins
+
+### The Number of Employees Which Report to Each Employee
+
+> Beats 22.25%
+
+```sql
+# Write your MySQL query statement below
+select reports_to as employee_id, (select name from Employees where employee_id = t.reports_to) as name, count(*) as reports_count, round(avg(age)) as average_age
+from Employees t
+where reports_to is not null
+group by reports_to
+order by reports_to;
+```
