@@ -352,3 +352,27 @@ where reports_to is not null
 group by reports_to
 order by reports_to;
 ```
+
+### Primary Department for Each Employee
+
+> Beats 94.66%
+
+```sql
+# Write your MySQL query statement below
+select * from (
+  select employee_id, first_value(department_id) over (PARTITION by employee_id order by primary_flag) as department_id
+  from Employee
+  ) t
+group by employee_id;
+```
+
+### Triangle Judgement
+
+> Beats 21.69%
+
+```sql
+# Write your MySQL query statement below
+select *, (IF(x + y > z and x + z > y and y + z > x, 'Yes', 'No')) as triangle from Triangle;
+```
+
+
