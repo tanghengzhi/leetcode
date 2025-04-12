@@ -375,4 +375,49 @@ group by employee_id;
 select *, (IF(x + y > z and x + z > y and y + z > x, 'Yes', 'No')) as triangle from Triangle;
 ```
 
+### Consecutive Numbers
 
+> Beats 58.80%
+
+```sql
+# Write your MySQL query statement below
+select distinct num as ConsecutiveNums from Logs B where exists (select * from Logs A where A.id = B.id - 1 and A.num = B.num) and exists (select * from Logs C where C.id = B.id + 1 and C.num = B.num);
+```
+
+### Product Price at a Given Date
+
+> Beats 6.70%
+
+```sql
+# Write your MySQL query statement below
+select product_id, IFNULL((select new_price from Products where product_id = t.product_id and change_date <= '2019-08-16' order by change_date desc limit 1), 10) as price
+from Products t
+group by product_id
+```
+
+### Last Person to Fit in the Bus
+
+> Beats 5.01%
+
+```sql
+# Write your MySQL query statement below
+select person_name from (
+  select *, sum(weight) over (order by turn) as total_weight from Queue
+) t
+where total_weight <= 1000
+order by total_weight desc
+limit 1;
+```
+
+### Count Salary Categories
+
+> Beats 84.35%
+
+```sql
+# Write your MySQL query statement below
+select 'Low Salary' as category, sum(income < 20000) as accounts_count from Accounts
+union all
+select 'Average Salary' as category, sum(income between 20000 and 50000) as accounts_count from Accounts
+union all
+select 'High Salary' as category, sum(income > 50000) as accounts_count from Accounts;
+```
