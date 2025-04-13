@@ -421,3 +421,26 @@ select 'Average Salary' as category, sum(income between 20000 and 50000) as acco
 union all
 select 'High Salary' as category, sum(income > 50000) as accounts_count from Accounts;
 ```
+
+## Subqueries
+
+### The Number of Employees Which Report to Each Employee
+
+> Beats 95.91%
+
+```sql
+# Write your MySQL query statement below
+select employee_id
+from Employees e
+where salary < 30000 and manager_id is not null and not exists (select 1 from Employees where employee_id = e.manager_id)
+order by employee_id;
+```
+
+### Exchange Seats
+
+> Beats 24.98%
+
+```sql
+# Write your MySQL query statement below
+select id, IFNULL(IF(id % 2 = 1, (select student from Seat where id = t.id + 1), (select student from Seat where id = t.id - 1)), t.student) as student from Seat t;
+```
