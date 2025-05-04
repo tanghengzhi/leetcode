@@ -464,3 +464,24 @@ group by movie_id
 order by avg(rating) desc, title
 limit 1);
 ```
+
+### Restaurant Growth
+
+> Beats 71.72%
+
+```sql
+# Write your MySQL query statement below
+SELECT
+    visited_on,
+    amount,
+    ROUND(amount / 7, 2) AS average_amount
+FROM(
+    SELECT
+        DENSE_RANK() OVER(ORDER BY visited_on) AS `rank`,
+        visited_on,
+        SUM(amount) OVER(ORDER BY visited_on RANGE BETWEEN INTERVAL 6 DAY PRECEDING AND CURRENT ROW) AS amount
+    FROM Customer
+) t
+WHERE `rank` >= 7
+GROUP BY visited_on;
+```
