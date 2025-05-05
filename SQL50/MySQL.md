@@ -485,3 +485,45 @@ FROM(
 WHERE `rank` >= 7
 GROUP BY visited_on;
 ```
+
+### Friend Requests II: Who Has the Most Friends
+
+> Beats 43.45%
+
+```sql
+# Write your MySQL query statement below
+select id, count(*) as num from (
+    select requester_id as id from RequestAccepted
+    union all select accepter_id as id from RequestAccepted
+) t
+group by id
+order by num desc
+limit 1;
+```
+
+### Investments in 2016
+
+> Beats 29.25%
+
+```sql
+# Write your MySQL query statement below
+select round(sum(tiv_2016), 2) as tiv_2016 from Insurance t where exists (
+    select * from Insurance where pid <> t.pid and tiv_2015 = t.tiv_2015
+) and not exists (
+    select * from Insurance where pid <> t.pid and lat = t.lat and lon = t.lon
+);
+```
+
+### Department Top Three Salaries
+
+> Beats 27.09%
+
+```sql
+# Write your MySQL query statement below
+select (select name from Department where id = e.departmentId) as Department, e.name as Employee, salary as Salary
+from (
+    select *, dense_rank() over (partition by departmentId order by salary desc) as `rank` 
+    from Employee
+    ) e
+where e.rank <= 3;
+```
