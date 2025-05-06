@@ -527,3 +527,30 @@ from (
     ) e
 where e.rank <= 3;
 ```
+
+## Advanced String Functions / Regex / Clause
+
+### Fix Names in a Table
+
+> Beats 69.20%
+
+```sql
+# Write your MySQL query statement below
+select user_id, concat(ucase(substr(name, 1, 1)), lcase(substr(name, 2))) as name from Users order by user_id;
+```
+
+### Patients With a Condition
+
+> Beats 71.70%
+
+```sql
+# Write your MySQL query statement below
+select * from Patients where conditions like 'DIAB1%' or  conditions like '% DIAB1%';
+```
+
+> Beats 37.90%
+
+```sql
+# Write your MySQL query statement below
+select * from Patients where conditions REGEXP'(^|\\s)DIAB1';
+```
