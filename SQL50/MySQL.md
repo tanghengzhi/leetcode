@@ -554,3 +554,56 @@ select * from Patients where conditions like 'DIAB1%' or  conditions like '% DIA
 # Write your MySQL query statement below
 select * from Patients where conditions REGEXP'(^|\\s)DIAB1';
 ```
+### Delete Duplicate Emails
+
+> Beats 18.18%
+
+```sql
+# Write your MySQL query statement below
+delete from Person where id not in (
+    select id from (select min(id) as id from Person group by email) t
+);
+```
+
+### Second Highest Salary
+
+> Beats 100.00%
+
+```sql
+# Write your MySQL query statement below
+select IFNULL((select distinct Salary from Employee order by Salary desc limit 1,1), null) as SecondHighestSalary;
+```
+
+### Group Sold Products By The Date
+
+> Beats 35.29%
+
+```sql
+# Write your MySQL query statement below
+select sell_date, count(distinct product) as num_sold, group_concat(distinct product order by product) as products
+from Activities
+group by sell_date
+order by sell_date;
+```
+
+### List the Products Ordered in a Period
+
+> Beats 91.85%
+
+```sql
+# Write your MySQL query statement below
+select product_name, sum(unit) as unit
+from Orders left join Products using (product_id)
+where year(order_date) = 2020 and month(order_date) = 2
+group by Orders.product_id
+having unit >= 100;
+```
+
+### Find Users With Valid E-Mails
+
+> Beats 37.92%
+
+```sql
+# Write your MySQL query statement below
+select * from Users where mail REGEXP '^[A-Za-z]+[A-Za-z0-9_\\.-]*@leetcode\\.com$';
+```
