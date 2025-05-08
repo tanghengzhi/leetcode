@@ -4,12 +4,16 @@
 
 ### Recyclable and Low Fat Products
 
+> Beats 30.85%
+
 ```sql
 # Write your MySQL query statement below
 select product_id from Products where low_fats = 'Y' and recyclable = 'Y';
 ```
 
 ### Find Customer Referee
+
+> Beats 26.84%
 
 ```sql
 # Write your MySQL query statement below
@@ -18,12 +22,16 @@ select name from Customer where referee_id is null or referee_id <> 2;
 
 ### Big Countries
 
+> Beats 29.67%
+
 ```sql
 # Write your MySQL query statement below
 select name, population, area from World where population >= 25000000 or area >= 3000000;
 ```
 
 ### Article Views I
+
+> Beats 22.58%
 
 ```sql
 # Write your MySQL query statement below
