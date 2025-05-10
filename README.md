@@ -7,7 +7,7 @@ Keep tracking of my leetcode submissions.
 
 ## Study Plan
 
-## Leet Code 75
+### Leet Code 75
 [Rust](https://github.com/tanghengzhi/leetcode/blob/master/LeetCode75/rust.md)
 
 ### SQL 50
