@@ -48,3 +48,17 @@ impl Solution {
     }
 }
 ```
+
+### Kids With the Greatest Number of Candies
+
+> Runtime Beats 100%, Memory Beats 60.94%
+
+```rust
+impl Solution {
+    pub fn kids_with_candies(candies: Vec<i32>, extra_candies: i32) -> Vec<bool> {
+        let maxValue = candies.iter().max().unwrap();
+
+        return candies.iter().map(|x| x + extra_candies >= *maxValue).collect();
+    }
+}
+```
