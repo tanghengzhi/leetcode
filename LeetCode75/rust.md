@@ -62,3 +62,34 @@ impl Solution {
     }
 }
 ```
+
+### Can Place Flowers
+
+> Runtime Beats 100%, Memory Beats 76.19%
+
+```rust
+impl Solution {
+    pub fn can_place_flowers(mut flowerbed: Vec<i32>, mut n: i32) -> bool {
+        let len = flowerbed.len();
+
+        for i in 0..len {
+            if (flowerbed[i] == 1) {
+                continue;
+            }
+
+            if let Some(prev) = flowerbed.get(i - 1) {
+                if (*prev == 1) { continue; }
+            }
+
+            if let Some(next) = flowerbed.get(i + 1) {
+                if (*next == 1) { continue; }
+            }
+
+            flowerbed[i] = 1;
+            n -= 1;
+        }
+
+        return n <= 0;
+    }
+}
+```
