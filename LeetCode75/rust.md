@@ -93,3 +93,33 @@ impl Solution {
     }
 }
 ```
+
+### Reverse Words in a String
+
+> Runtime Beats 31.22%, Memory Beats 73.55%
+
+```rust
+impl Solution {
+    pub fn reverse_vowels(s: String) -> String {
+        let vowels = ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'];
+        let mut reverse = String::new();
+        let mut result = String::new();
+
+        for c in s.chars() {
+            if vowels.contains(&c) {
+                reverse.push(c);
+            }
+        }
+
+        for c in s.chars() {
+            if vowels.contains(&c) {
+                result.push(reverse.pop().unwrap());
+            } else {
+                result.push(c);
+            }
+        }
+
+        return result;
+    }
+}
+```
