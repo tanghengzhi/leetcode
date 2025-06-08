@@ -123,3 +123,34 @@ impl Solution {
     }
 }
 ```
+
+### Reverse Words in a String
+
+> Runtime Beats 2.72%, Memory Beats 3.80%
+
+```rust
+use regex::Regex;
+
+impl Solution {
+    pub fn reverse_words(s: String) -> String {
+        let pattern = r"\w+";
+        let re = Regex::new(pattern).unwrap();
+
+        let mut words: Vec<String> = Vec::new();
+        let mut result = String::new();
+
+        for mat in re.find_iter(&s) {
+            words.push(mat.as_str().to_string())
+        }
+
+        while let Some(word) = words.pop() {
+            result.push_str(&word);
+            result.push(' ');
+        }
+
+        result.pop();
+
+        return result;
+    }
+}
+```
